@@ -1,4 +1,4 @@
-# Social Identity and Advocacy - Chapter 9
+# Social Identity and Advocacy
 
 An interactive brochure and assessment tool for exploring social identity and advocacy concepts.
 
