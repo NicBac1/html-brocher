@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Identity and Advocacy - Chapter 9</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: 
+                url('image copy.png') repeat,
+                linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: url('image.png') center center / contain no-repeat;
+            background-color: #E3F2FD;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            min-height: 250px;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .two-column {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .column {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        h3 {
+            color: #4A90E2;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4A90E2;
+        }
+
+        h4 {
+            color: #357ABD;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        blockquote {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 5px solid #4A90E2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-style: italic;
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4A90E2, transparent);
+            margin: 30px 0;
+        }
+
+        .discussion {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .discussion h3 {
+            color: white;
+            border-bottom: 3px solid white;
+            text-align: center;
+        }
+
+        .discussion ol {
+            max-width: 700px;
+            margin: 20px auto;
+        }
+
+        .discussion li {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        /* Game Styles */
+        .game-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            margin-top: 40px;
+        }
+
+        .game-section h2 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-section p {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .question-container {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .rating-btn {
+            flex: 1;
+            padding: 15px;
+            border: 3px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .rating-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .rating-btn.selected {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .scale-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-btn:hover {
+            background: #f5576c;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            background: white;
+            color: #333;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .score-display {
+            font-size: 4em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .score-message {
+            font-size: 1.3em;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .restart-btn {
+            padding: 15px 40px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .two-column {
+                flex-direction: column;
+            }
+            .rating-scale {
+                flex-wrap: wrap;
+            }
+            .rating-btn {
+                min-width: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+    </div>
+
+    <div class="content">
+        <div class="two-column">
+            <div class="column">
+                <div class="section">
+                    <h3>🏛️ The Foundation: Why We Advocate</h3>
+                    <p>Advocacy is necessary because our social identities are tied to systems of power. The chapter builds on three key takeaways:</p>
+                    <ul>
+                        <li><b>#1: Difference Matters:</b> Social identities (race, gender, class, disability, etc.) aren't just labels; they persistently matter because society has built hierarchies around them.</li>
+                        <li><b>#2: Power Counts:</b> Powerful systems (media, politics, etc.) create and maintain these hierarchies. We must understand power to challenge it.</li>
+                        <li><b>#3: Communication Rules:</b> Communication is the tool used to <i>build</i> inequality, but it's also our most powerful tool to <i>dismantle</i> it.</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>🧠 Key Concepts for Advocates</h3>
+                    <p>To be an effective advocate, you must first "Be Mindful" by recognizing these key concepts in yourself and others.</p>
+
+                    <p><b>T.U.I. (Thinking Under the Influence)</b></p>
+                    <p>This is the chapter's most important term. It means thinking under the influence of <b>"prejudices, stereotypes, and dominant ideologies."</b></p>
+                    <ul>
+                        <li><b>Example:</b> Assuming someone in a wheelchair has a "gloomy outlook" or that someone who doesn't speak "proper" English is "unintelligent."</li>
+                        <li><b>Advocacy Step:</b> Mindfulness is the first step. You must catch your own T.U.I. moments before you can proactively challenge them in the world.</li>
+                    </ul>
+
+                    <p><b>Intent vs. Impact</b></p>
+                    <p>This is the most common conflict in communication about identity.</p>
+                    <blockquote>
+                        <b>Intent</b> = What you <i>meant</i> to do.<br><br>
+                        <b>Impact</b> = The <i>reality</i> of what your words/actions did.
+                    </blockquote>
+                    <p>An advocate knows that <b>"I didn't mean it"</b> is not an excuse. It dismisses the harm caused. A proactive response is to listen to the impact, apologize, and learn.</p>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="section">
+                    <h3>🛠️ How to Be an Advocate: "Be Proactive"</h3>
+                    <p>Advocacy is about being <b>proactive</b>: "taking the initiative and the responsibility to make things happen." It's the opposite of being a silent bystander.</p>
+
+                    <h4>1. Give Descriptive Feedback</h4>
+                    <p>This is a crucial skill for challenging power without making the other person defensive. Don't accuse; describe.</p>
+                    <ul>
+                        <li><b>Accusatory (Bad):</b> "You're racist! You always ignore me."</li>
+                        <li><b>Descriptive (Good):</b> "I've noticed that in the last two meetings, you haven't called on me when I raised my hand. I feel ignored and unvalued."</li>
+                    </ul>
+                    <p>This focuses on the <i>behavior</i> and its <i>impact</i>, which opens the door for dialogue and change.</p>
+
+                    <h4>2. Check Your Privilege</h4>
+                    <p>Citing Ijeoma Oluo, this means "to pause and consider how your advantages... are keeping you from fully understanding the struggles" of others. You can use your privilege to challenge the system (e.g., a cisgender person advocating for transgender rights).</p>
+
+                    <h4>3. Challenge In-Groups & Power Dynamics</h4>
+                    <p>Advocacy starts in your own circles.</p>
+                    <ul>
+                        <li><b>In-Groups:</b> Proactively challenge "we/us" vs. "they/them" language or discriminatory jokes (e.g., "I don't think that's funny").</li>
+                        <li><b>Power Dynamics:</b> Use your voice in unequal relationships. (e.g., The author questioning their doctor's recommendation by bringing in their own research).</li>
+                    </ul>
+
+                    <h4>4. Learn About Other Cultures</h4>
+                    <p>Don't wait to be taught. Proactively learn about other social identity groups. The author gives a personal example of being critiqued for not considering neurodiversity, which prompted them to do their own research and revise their work.</p>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="discussion">
+            <h3>🗣️ Discussion Questions</h3>
+            <ol>
+                <li>How do your different social identities influence how you interact with others?</li>
+                <li>In what ways can understanding your own identities help you to improve communication?</li>
+                <li>How has race, gender, or class influenced how your identity is perceived by others?</li>
+                <li>What is one practical way you think you could use to advocate for inclusion in a community or classroom?</li>
+                <li>When have you seen advocacy done really well, like on campus or a community, and what do you think made it effective?</li>
+                <li>When do you feel the most aware of yourself and who you are and how does communication play a role in that?</li>
+                <li>What's one issue or group that you have felt compelled to advocate for and why?</li>
+                <li>What's one cause you would advocate about related to your personal identity and how?</li>
+                <li>How can diverse perspectives make advocacy movements stronger?</li>
+                <li>Do you think learning about social identity will make you think differently about how you communicate with others and how?</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- Game Section -->
+    <div class="game-section">
+        <h2>🎮 Advocacy Readiness Assessment</h2>
+        <p>Rate how likely you are to take each action on a scale of 1 (Very Unlikely) to 5 (Very Likely)</p>
+
+        <div id="game-container">
+            <!-- Questions will be inserted here by JavaScript -->
+        </div>
+
+        <button class="submit-btn" id="submit-btn" onclick="calculateScore()" disabled>Calculate My Score</button>
+
+        <div class="results" id="results">
+            <h2>Your Advocacy Score</h2>
+            <div class="score-display" id="score-display">0/50</div>
+            <div class="score-message" id="score-message"></div>
+            <button class="restart-btn" onclick="restartGame()">Take Again</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            text: "Challenge a friend who makes a discriminatory joke about someone's race or ethnicity?",
+            category: "Race Matters"
+        },
+        {
+            text: "Speak up when you notice gender-based microaggressions in a workplace meeting?",
+            category: "Gender Matters"
+        },
+        {
+            text: "Question a doctor's recommendation and bring your own research when you feel your concerns aren't being heard?",
+            category: "Power Matters"
+        },
+        {
+            text: "Proactively learn about accessibility needs and advocate for inclusive design in your community?",
+            category: "Disability Matters"
+        },
+        {
+            text: "Use your privilege (e.g., as a cisgender person) to advocate for transgender rights in spaces where trans voices might not be heard?",
+            category: "Sexuality Matters"
+        },
+        {
+            text: "Challenge ageist stereotypes when you hear someone dismiss an older person's ideas or a younger person's concerns?",
+            category: "Age Matters"
+        },
+        {
+            text: "Give descriptive feedback about exclusionary behavior instead of making accusatory statements?",
+            category: "Difference and Other Important Matters"
+        },
+        {
+            text: "Recognize and address your own T.U.I. (Thinking Under the Influence) moments before they affect others?",
+            category: "Social Identity"
+        },
+        {
+            text: "Advocate for economic justice and challenge class-based assumptions in your social circles?",
+            category: "Social Class Matters"
+        },
+        {
+            text: "Listen to the impact of your words and actions, even when your intent was positive, and commit to learning and changing?",
+            category: "Social Identity"
+        }
+    ];
+
+    let answers = {};
+
+    function initGame() {
+        const container = document.getElementById('game-container');
+        container.innerHTML = '';
+
+        questions.forEach((question, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question-container';
+            questionDiv.innerHTML = `
+                <div class="question-number">Question ${index + 1} - ${question.category}</div>
+                <div class="question-text">How likely are you to: ${question.text}</div>
+                <div class="rating-scale">
+                    <button class="rating-btn" onclick="selectRating(${index}, 1)">1</button>
+                    <button class="rating-btn" onclick="selectRating(${index}, 2)">2</button>
+                    <button class="rating-btn" onclick="selectRating(${index}, 3)">3</button>
+                    <button class="rating-btn" onclick="selectRating(${index}, 4)">4</button>
+                    <button class="rating-btn" onclick="selectRating(${index}, 5)">5</button>
+                </div>
+                <div class="scale-labels">
+                    <span>Very Unlikely</span>
+                    <span>Very Likely</span>
+                </div>
+            `;
+            container.appendChild(questionDiv);
+        });
+    }
+
+    function selectRating(questionIndex, rating) {
+        answers[questionIndex] = rating;
+        
+        // Update button styles
+        const questionContainer = document.getElementById('game-container').children[questionIndex];
+        const buttons = questionContainer.querySelectorAll('.rating-btn');
+        buttons.forEach((btn, idx) => {
+            if (idx + 1 === rating) {
+                btn.classList.add('selected');
+            } else {
+                btn.classList.remove('selected');
+            }
+        });
+
+        // Enable submit button if all questions answered
+        if (Object.keys(answers).length === questions.length) {
+            document.getElementById('submit-btn').disabled = false;
+        }
+    }
+
+    function calculateScore() {
+        const totalScore = Object.values(answers).reduce((sum, val) => sum + val, 0);
+        const maxScore = questions.length * 5;
+        const percentage = Math.round((totalScore / maxScore) * 100);
+
+        document.getElementById('score-display').textContent = `${totalScore}/${maxScore}`;
+        
+        let message = '';
+        if (percentage >= 80) {
+            message = '🌟 Excellent! You demonstrate strong advocacy readiness. You\'re likely to be proactive in challenging inequality and supporting marginalized groups. Keep up the great work!';
+        } else if (percentage >= 60) {
+            message = '👍 Good! You show solid advocacy awareness. Consider looking for more opportunities to be proactive in your daily life and challenge systems of power.';
+        } else if (percentage >= 40) {
+            message = '💭 Developing. You have some awareness of advocacy, but there\'s room to grow. Try practicing mindfulness about your own biases and look for small ways to be more proactive.';
+        } else {
+            message = '📚 Learning. Advocacy is a journey! Consider reflecting on the concepts in this chapter and look for opportunities to practice being more mindful and proactive in your interactions.';
+        }
+
+        document.getElementById('score-message').textContent = message;
+        document.getElementById('results').style.display = 'block';
+        document.getElementById('game-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function restartGame() {
+        answers = {};
+        document.getElementById('results').style.display = 'none';
+        document.getElementById('submit-btn').disabled = true;
+        initGame();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Initialize game on page load
+    initGame();
+</script>
+
+</body>
+</html>
+
